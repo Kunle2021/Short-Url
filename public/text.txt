@@ -1,0 +1,37 @@
+document.getElementById('postData').addEventListener('submit', postData);
+
+    function postData(event){
+            //event.preventDefault();
+
+            let CampaignName = document.getElementById('CampaignName').value;
+            let Startdate = document.getElementById('Startdate').value;
+            let Enddate = document.getElementById('Enddate').value;
+            let LongUrl = document.getElementById('LongUrl').value;
+
+            fetch('http://localhost:54175/api/redirect', {
+                method: 'POST',
+                headers : {'Accept': 'text/csv',
+                },
+                body:JSON.stringify({CampaignName:CampaignName, Startdate:Startdate , Enddate:Enddate , LongUrl:LongUrl})
+            }).then((res) => res.text())
+            .then((data) =>  console.log(data))
+            .catch((err)=>console.log(err))
+        } 
+
+            <form  class ="postData" id = "myForm">
+      <div>
+          <input type="text" name="CampaignName" id="CampaignName" placeholder="Enter a CampaignName">
+      </div>
+
+      <label for="Startdate">Startdate: </label>
+      <input type="date" id="Startdate" name="Startdate"><br><br>
+
+      <label for="Enddate">Enddate: </label>
+      <input type="date" id="Enddate" name="Enddate"><br><br>
+
+      <div>
+          <textarea placeholder="Enter URLs" cols="50" rows="5" id = "LongUrl" name = "LongUrl"></textarea>
+      </div>
+      
+      <input type="submit" value="SEND POST" id = "button">
+  </form>
